@@ -42,3 +42,9 @@ YouTube
   available.
 - ``SHORTCODES_YOUTUBE_HEIGHT``: Default height for YouTube videos.
 - ``SHORTCODES_YOUTUBE_WIDTH``: Default width for YouTube videos.
+
+Spotify
+-------
+
+- ``SHORTCODES_SPOTIFY_WIDTH``: Default width for Spotify embeds, can be a number or a percentage, e.g. `80%`
+- ``SHORTCODES_SPOTIFY_HEIGHT``: Default height for Spotify embeds, can be a number or a percentage, e.g. `80%`
