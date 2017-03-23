@@ -66,3 +66,9 @@ Spotify
 
 - ``SHORTCODES_SPOTIFY_WIDTH``: Default width for Spotify embeds, can be a number or a percentage, e.g. `80%`
 - ``SHORTCODES_SPOTIFY_HEIGHT``: Default height for Spotify embeds, can be a number or a percentage, e.g. `80%`
+
+Soundcloud
+----------
+
+- ``SHORTCODES_SOUNDCLOUD_HEIGHT``: Default height for Soundcloud player embeds.
+- ``SHORTCODES_SOUNDCLOUD_WIDTH``: Default width for Soundcloud player embeds.
