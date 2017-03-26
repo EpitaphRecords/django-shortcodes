@@ -69,9 +69,6 @@ Vimeo
 YouTube
 -------
 
-- ``SHORTCODES_YOUTUBE_JQUERY``: Boolean whether the
-  `jquery.flash plugin <https://github.com/Qard/jquery-flash>`_ is
-  available.
 - ``SHORTCODES_YOUTUBE_HEIGHT``: Default height for YouTube videos.
 - ``SHORTCODES_YOUTUBE_WIDTH``: Default width for YouTube videos.
 

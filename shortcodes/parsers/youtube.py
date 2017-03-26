@@ -25,6 +25,11 @@ class YoutubeParamForm(forms.Form):
     username = forms.CharField(required=False)
     query = forms.CharField(required=False)
 
+    # Embed size
+
+    width = forms.CharField(required=False)
+    height = forms.CharField(required=False)
+
     """
     YouTube embed parameters as taken from the documentation:
     https://developers.google.com/youtube/player_parameters#Parameters
@@ -47,8 +52,6 @@ class YoutubeParamForm(forms.Form):
     rel = forms.ChoiceField(choices=TRUTHY_CHOICES, required=False)
     showinfo = forms.ChoiceField(choices=TRUTHY_CHOICES, required=False)
     start = forms.IntegerField(min_value=1, required=False)
-    width = forms.CharField(required=False)
-    height = forms.CharField(required=False)
 
     def clean_width(self):
         width = self.cleaned_data.get('width')
