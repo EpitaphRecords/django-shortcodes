@@ -30,7 +30,7 @@ Usage
 
 ::
 
-    Hey there, check out this rad new song:
+    Hey there, check out this rad song on Spotify:
     [spotify uri=spotify:track:41eiwHEX8iegmqmS2cf7oX]
 
 Available parameters:
@@ -42,6 +42,20 @@ Available parameters:
 * ``view``: View styles of the embed, either 'list', 'coverart'.
 
 Parameters are implemented as documented here: https://developer.spotify.com/technologies/widgets/spotify-play-button/
+
+**Soundcloud**
+
+::
+
+    Oh hi, check out this rad song on Soundcloud:
+    [soundcloud url=https://soundcloud.com/epitaph-records/the-menzingers-thick-as-thieves]
+
+Available parameters:
+
+* ``url`` (required): The URL for the Soundcloud track or collection that you'd like to embed.
+* ``width``: The width of the embed. If not set, 480 is the default.
+* ``height``: The height of the embed. If not set, 166 is the default.
+* ``color``: Optionally specify a button color in hex format without the `#` character, e.g. `c0ff33`.
 
 Settings
 ========
