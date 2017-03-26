@@ -1,0 +1,7 @@
+<iframe
+  width="{{ width }}"
+  height="{{ height }}"
+  src="https://www.youtube.com/embed{% if video_id %}/{{ video_id }}{% endif %}{% if query_string %}?{{ query_string|safe }}{% endif %}"
+  frameborder="0"
+  allowfullscreen>
+</iframe>
