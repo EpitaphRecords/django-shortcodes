@@ -25,6 +25,24 @@ Usage
     {% load shortcodes_filters %}
     {{ text|shortcodes|safe }}
 
+
+**Spotify**
+
+::
+
+    Hey there, check out this rad new song:
+    [spotify uri=spotify:track:41eiwHEX8iegmqmS2cf7oX]
+
+Available parameters:
+
+* ``uri`` (required): The Spotify URI for a track, album, playlist, etc., that you'd like to embed. This can be found in the Spotify app with "Copy Spotify URI" buttons.
+* ``width``: The width of the embed. If not set, 480 is the default.
+* ``height``: The height of the embed. If not set, 480 is the default.
+* ``theme``: Color theme of the embed, either 'black' or 'white'
+* ``view``: View styles of the embed, either 'list', 'coverart'.
+
+Parameters are implemented as documented here: https://developer.spotify.com/technologies/widgets/spotify-play-button/
+
 Settings
 ========
 
