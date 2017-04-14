@@ -2,8 +2,8 @@
 
 {% block shortcode_content %}
 <iframe
-  width="{{ width }}"
-  height="{{ height }}"
+  {% if width %}width="{{ width }}"{% endif %}
+  {% if height %}height="{{ height }}"{% endif %}
   scrolling="no"
   frameborder="no"
   src="https://w.soundcloud.com/player/?url={{ url|urlencode }}{% if color %}&amp;color={{ color }}{% endif %}">
