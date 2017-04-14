@@ -2,7 +2,8 @@
 
 {% block shortcode_content %}
 <iframe src="https://player.vimeo.com/video/{{ video_id }}?color=ffffff"
-        width="{{ width }}" height="{{ height }}"
+        {% if width %}width="{{ width }}"{% endif %}
+        {% if height %}height="{{ height }}"{% endif %}
         frameborder="0"
         webkitAllowFullScreen
         mozallowfullscreen
