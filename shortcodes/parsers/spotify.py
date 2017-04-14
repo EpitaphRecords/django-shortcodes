@@ -6,6 +6,7 @@ VIEW_OPTIONS = ('list', 'coverart',)
 
 DEFAULT_WIDTH = 480
 DEFAULT_HEIGHT = 480
+DEFAULT_CSS_CLASS = 'shortcode-spotify'
 
 def parse(kwargs, template_name='shortcodes/spotify.html'):
     """
@@ -29,6 +30,7 @@ def parse(kwargs, template_name='shortcodes/spotify.html'):
         view = kwargs.get('view')
 
         ctx = {
+            'css_class': getattr(settings, 'SHORTCODES_SPOTIFY_CSS_CLASS', DEFAULT_CSS_CLASS),
             'uri': uri,
             'width': width,
             'height': height

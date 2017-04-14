@@ -5,6 +5,7 @@ from django.conf import settings
 
 DEFAULT_WIDTH = 480
 DEFAULT_HEIGHT = 166
+DEFAULT_CSS_CLASS = 'shortcode-soundcloud'
 
 HEX_COLOR_REGEX = r'^([a-f0-9]{6}|[a-f0-9]{3})$'
 
@@ -32,6 +33,7 @@ def parse(kwargs, template_name='shortcodes/soundcloud.html'):
             color = None
 
         ctx = {
+            'css_class': getattr(settings, 'SHORTCODES_SOUNDCLOUD_CSS_CLASS', DEFAULT_CSS_CLASS),
             'url': url,
             'width': width,
             'height': height

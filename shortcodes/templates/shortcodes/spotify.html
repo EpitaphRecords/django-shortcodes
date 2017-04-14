@@ -1,3 +1,6 @@
+{% extends 'shortcodes/base.html' %}
+
+{% block shortcode_content %}
 <iframe
   src="https://embed.spotify.com/?uri={{ uri }}{% if theme %}&amp;theme={{ theme }}{% endif %}{% if view %}&amp;view={{ view }}{% endif %}"
   width="{{ width }}"
@@ -5,3 +8,4 @@
   frameborder="0"
   allowtransparency="true">
 </iframe>
+{% endblock %}

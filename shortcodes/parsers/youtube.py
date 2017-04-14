@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 
 DEFAULT_WIDTH = 480
 DEFAULT_HEIGHT = 270
+DEFAULT_CSS_CLASS = 'shortcode-youtube'
 
 def choicify(choice_tuple):
     return tuple((val, val,) for val in choice_tuple)
@@ -105,6 +106,7 @@ def parse(kwargs, template_name='shortcodes/youtube.html'):
             data.pop(key, None)
 
         ctx = {
+            'css_class': getattr(settings, 'SHORTCODES_YOUTUBE_CSS_CLASS', DEFAULT_CSS_CLASS),
             'video_id': data.pop('video_id', None),
             'width': data.pop('width'),
             'height': data.pop('height')
