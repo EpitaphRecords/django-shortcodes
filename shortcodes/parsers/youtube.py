@@ -108,8 +108,8 @@ def parse(kwargs, template_name='shortcodes/youtube.html'):
         ctx = {
             'css_class': getattr(settings, 'SHORTCODES_YOUTUBE_CSS_CLASS', DEFAULT_CSS_CLASS),
             'video_id': data.pop('video_id', None),
-            'width': data.pop('width'),
-            'height': data.pop('height')
+            'width': data.pop('width', None),
+            'height': data.pop('height', None)
         }
 
         ctx['query_string'] = urlencode(data)
