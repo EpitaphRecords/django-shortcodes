@@ -31,14 +31,16 @@ def parse(value):
             args = {}
 
         item = re.escape(item)
+        cache_key = re.sub(r'\s+', '_', item)
+
         try:
-            if cache.get(item):
+            if cache.get(cache_key):
                 parsed = re.sub(r'\[' + item + r'\]', cache.get(item), parsed)
             else:
                 module = import_parser('shortcodes.parsers.' + name)
                 function = getattr(module, 'parse')
                 result = function(args)
-                cache.set(item, result, 3600)
+                cache.set(cache_key, result, 3600)
                 parsed = re.sub(r'\[' + item + r'\]', result, parsed)
         except ImportError:
             pass
