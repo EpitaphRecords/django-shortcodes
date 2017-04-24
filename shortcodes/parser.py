@@ -10,6 +10,27 @@ def import_parser(name):
         mod = getattr(mod, comp)
     return mod
 
+def create_cache_key(shortcode):
+    """
+    Take a shortcode and create a cache key that the cache backends should be happy with
+    """
+    cache_key = re.sub(r'\s+', '_', shortcode)
+
+    # Remove characters that memcache doesn't like
+    # This is referenced from the validate_key function in the BaseCache
+    # class in Django
+
+    remove = []
+
+    for char in cache_key:
+        if ord(char) < 33 or ord(char) == 127:
+            remove.append(char)
+
+    for char in set(remove):
+        cache_key = cache_key.replace(char, '')
+
+    return cache_key
+
 
 def parse(value):
     ex = re.compile(r'\[(.*?)\]')
@@ -30,8 +51,7 @@ def parse(value):
             name = item
             args = {}
 
-        item = re.escape(item)
-        cache_key = re.sub(r'\s+', '_', item)
+        cache_key = create_cache_key(item)
 
         try:
             if cache.get(cache_key):
