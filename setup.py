@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name="django-shortcodes",
-    version="1.1.4",
+    version="1.1.5",
     description="WordPress shortcode support for Django",
     author="Mark Steadman",
     author_email="marksteadman@me.com",
