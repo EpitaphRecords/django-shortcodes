@@ -55,7 +55,7 @@ def parse(value):
 
         try:
             if cache.get(cache_key):
-                parsed = re.sub(r'\[' + item + r'\]', cache.get(item), parsed)
+                parsed = re.sub(r'\[' + re.escape(item) + r'\]', cache.get(cache_key), parsed)
             else:
                 module = import_parser('shortcodes.parsers.' + name)
                 function = getattr(module, 'parse')
