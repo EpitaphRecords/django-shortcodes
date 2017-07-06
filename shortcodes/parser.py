@@ -10,11 +10,14 @@ def import_parser(name):
         mod = getattr(mod, comp)
     return mod
 
-def create_cache_key(shortcode):
+def get_parser_class_name(name):
+    return '%sParser' % name.replace('-', ' ').title().replace(' ', '')
+
+def create_cache_key(shortcode, render_format):
     """
     Take a shortcode and create a cache key that the cache backends should be happy with
     """
-    cache_key = re.sub(r'\s+', '_', shortcode)
+    cache_key = '%s-%s' % (re.sub(r'\s+', '_', shortcode), render_format)
 
     # Remove characters that memcache doesn't like
     # This is referenced from the validate_key function in the BaseCache
@@ -31,8 +34,7 @@ def create_cache_key(shortcode):
 
     return cache_key
 
-
-def parse(value):
+def parse(value, render_format='html'):
     ex = re.compile(r'\[(.*?)\]')
     groups = ex.findall(value)
     pieces = {}
@@ -51,15 +53,17 @@ def parse(value):
             name = item
             args = {}
 
-        cache_key = create_cache_key(item)
+        cache_key = create_cache_key(item, render_format)
 
         try:
             if cache.get(cache_key):
                 parsed = re.sub(r'\[' + re.escape(item) + r'\]', cache.get(cache_key), parsed)
             else:
                 module = import_parser('shortcodes.parsers.' + name)
-                function = getattr(module, 'parse')
-                result = function(args)
+                parser_class_name = get_parser_class_name(name)
+                parser_class = getattr(module, parser_class_name)
+                parser = parser_class()
+                result = parser.render(args, render_format)
                 cache.set(cache_key, result, 3600)
                 parsed = re.sub(r'\[' + item + r'\]', result, parsed)
         except ImportError:
