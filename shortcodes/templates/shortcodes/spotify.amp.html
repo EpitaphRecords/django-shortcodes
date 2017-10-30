@@ -1,0 +1,8 @@
+<amp-iframe
+  layout="responsive"
+  src="https://embed.spotify.com/?uri={{ uri }}{% if theme %}&amp;theme={{ theme }}{% endif %}{% if view %}&amp;view={{ view }}{% endif %}"
+  {% if width %}width="{{ width }}"{% endif %}
+  {% if height %}height="{{ height }}"{% endif %}
+  frameborder="0"
+  allowtransparency="true">
+</amp-iframe>

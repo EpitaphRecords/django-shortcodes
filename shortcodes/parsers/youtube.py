@@ -93,6 +93,7 @@ class YoutubeParamForm(forms.Form):
         else:
             raise forms.ValidationError('Must set a video id, playlist id or username for YouTube shortcode')
 
+
 class YoutubeParser(BaseParser):
     name = 'youtube'
 
@@ -103,7 +104,7 @@ class YoutubeParser(BaseParser):
         if form.is_valid():
 
             # Pull out cleaned data, filtering out empty values
-            
+
             data = dict((k, v) for k, v in form.cleaned_data.iteritems() if v)
 
             # Pop these out, leaving the remaining keys for the query string
@@ -117,7 +118,6 @@ class YoutubeParser(BaseParser):
                 'width': data.pop('width', None),
                 'height': data.pop('height', None)
             }
-
             ctx['query_string'] = urlencode(data)
 
         context.update(ctx)
