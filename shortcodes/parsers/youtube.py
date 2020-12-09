@@ -4,6 +4,8 @@ from django import forms
 from django.conf import settings
 from django.template.loader import render_to_string
 
+from .base import BaseParser
+
 DEFAULT_WIDTH = 480
 DEFAULT_HEIGHT = 270
 DEFAULT_CSS_CLASS = 'shortcode-youtube'
@@ -90,27 +92,34 @@ class YoutubeParamForm(forms.Form):
         else:
             raise forms.ValidationError('Must set a video id, playlist id or username for YouTube shortcode')
 
-def parse(kwargs, template_name='shortcodes/youtube.html'):
-    form = YoutubeParamForm(kwargs)
 
-    if form.is_valid():
+class YoutubeParser(BaseParser):
+    name = 'youtube'
+
+    def get_context(self, context={}, render_format='html'):
+        ctx = {}
+        form = YoutubeParamForm(context)
+
+        if form.is_valid():
 
         # Pull out cleaned data, filtering out empty values
         
         data = dict((k, v) for k, v in list(form.cleaned_data.items()) if v)
 
-        # Pop these out, leaving the remaining keys for the query string
+            data = dict((k, v) for k, v in form.cleaned_data.iteritems() if v)
 
-        for key in ['playlist_id', 'username', 'query']:
-            data.pop(key, None)
+            # Pop these out, leaving the remaining keys for the query string
 
-        ctx = {
-            'css_class': getattr(settings, 'SHORTCODES_YOUTUBE_CSS_CLASS', DEFAULT_CSS_CLASS),
-            'video_id': data.pop('video_id', None),
-            'width': data.pop('width', None),
-            'height': data.pop('height', None)
-        }
+            for key in ['playlist_id', 'username', 'query']:
+                data.pop(key, None)
 
-        ctx['query_string'] = urlencode(data)
+            ctx = {
+                'css_class': getattr(settings, 'SHORTCODES_YOUTUBE_CSS_CLASS', DEFAULT_CSS_CLASS),
+                'video_id': data.pop('video_id', None),
+                'width': data.pop('width', None),
+                'height': data.pop('height', None)
+            }
+            ctx['query_string'] = urlencode(data)
 
-        return render_to_string(template_name, ctx)
+        context.update(ctx)
+        return context

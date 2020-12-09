@@ -1,7 +1,8 @@
 import re
 
-from django.template.loader import render_to_string
 from django.conf import settings
+
+from .base import BaseParser
 
 DEFAULT_WIDTH = 480
 DEFAULT_HEIGHT = 166
@@ -9,37 +10,42 @@ DEFAULT_CSS_CLASS = 'shortcode-soundcloud'
 
 HEX_COLOR_REGEX = r'^([a-f0-9]{6}|[a-f0-9]{3})$'
 
-def parse(kwargs, template_name='shortcodes/soundcloud.html'):
-    """
-    Shortcode parser for Soundcloud player embed
-    https://soundcloud.com/pages/embed
-    """
-    url = kwargs.get('url')
+class SoundcloudParser(BaseParser):
+    name = 'soundcloud'
 
-    if url:
-        width = kwargs.get(
-            'width',
-            getattr(settings, 'SHORTCODES_SOUNDCLOUD_WIDTH', DEFAULT_WIDTH)
-        )
+    def get_context(self, context={}, render_format='html'):
+        """
+        Shortcode parser for Soundcloud player embed
+        https://soundcloud.com/pages/embed
+        """
+        ctx = {}
+        url = context.get('url')
 
-        height = kwargs.get(
-            'height',
-            getattr(settings, 'SHORTCODES_SOUNDCLOUD_HEIGHT', DEFAULT_HEIGHT)
-        )
+        if url:
+            width = context.get(
+                'width',
+                getattr(settings, 'SHORTCODES_SOUNDCLOUD_WIDTH', DEFAULT_WIDTH)
+            )
 
-        color = kwargs.get('color')
+            height = context.get(
+                'height',
+                getattr(settings, 'SHORTCODES_SOUNDCLOUD_HEIGHT', DEFAULT_HEIGHT)
+            )
 
-        if color and not re.match(HEX_COLOR_REGEX, color, flags=re.IGNORECASE):
-            color = None
+            color = context.get('color')
 
-        ctx = {
-            'css_class': getattr(settings, 'SHORTCODES_SOUNDCLOUD_CSS_CLASS', DEFAULT_CSS_CLASS),
-            'url': url,
-            'width': width,
-            'height': height
-        }
+            if color and not re.match(HEX_COLOR_REGEX, color, flags=re.IGNORECASE):
+                color = None
 
-        if color:
-            ctx['color'] = color
+            ctx = {
+                'css_class': getattr(settings, 'SHORTCODES_SOUNDCLOUD_CSS_CLASS', DEFAULT_CSS_CLASS),
+                'url': url,
+                'width': width,
+                'height': height
+            }
 
-        return render_to_string(template_name, ctx)
+            if color:
+                ctx['color'] = color
+
+        context.update(ctx)
+        return context
