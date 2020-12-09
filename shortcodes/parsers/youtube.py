@@ -1,6 +1,5 @@
 import re
-from urllib import urlencode
-
+from urllib.parse import urlencode
 from django import forms
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -103,7 +102,9 @@ class YoutubeParser(BaseParser):
 
         if form.is_valid():
 
-            # Pull out cleaned data, filtering out empty values
+        # Pull out cleaned data, filtering out empty values
+        
+        data = dict((k, v) for k, v in list(form.cleaned_data.items()) if v)
 
             data = dict((k, v) for k, v in form.cleaned_data.iteritems() if v)
 
