@@ -102,11 +102,9 @@ class YoutubeParser(BaseParser):
 
         if form.is_valid():
 
-        # Pull out cleaned data, filtering out empty values
+            # Pull out cleaned data, filtering out empty values
         
-        data = dict((k, v) for k, v in list(form.cleaned_data.items()) if v)
-
-            data = dict((k, v) for k, v in form.cleaned_data.iteritems() if v)
+            data = dict((k, v) for k, v in list(form.cleaned_data.items()) if v)
 
             # Pop these out, leaving the remaining keys for the query string
 
@@ -121,5 +119,5 @@ class YoutubeParser(BaseParser):
             }
             ctx['query_string'] = urlencode(data)
 
-        context.update(ctx)
-        return context
+            context.update(ctx)
+            return context
